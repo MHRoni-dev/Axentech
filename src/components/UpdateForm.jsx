@@ -3,6 +3,7 @@ import { Input } from './ui/input';
 import useUserMutation from '../hooks/useUserMutation';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
+import LoadingPage from '@/pages/LoadingPage';
 
 export default function UpdateForm() {
   const location = useLocation()
@@ -18,6 +19,7 @@ export default function UpdateForm() {
   const navigate = useNavigate()
 
   const {updateUser, error, data} = useUserMutation()
+  const [loading, setLoading] = useState(false)
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,10 +30,14 @@ export default function UpdateForm() {
   };
 
   const handleSubmit = (e) => {
+    setLoading(true)
     e.preventDefault();
     updateUser(initialState['.id'], formData)
-    
+    setLoading(false)
   };
+  if(loading) {
+    <LoadingPage />
+  }
 
   useEffect(()=>{
     if(error){

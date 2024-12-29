@@ -2,11 +2,13 @@ import { userContext } from '@/context/userContext';
 import { useToast } from '@/hooks/use-toast';
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import LoadingPage from './LoadingPage';
 
 const UserLoginPage = () => {
   const [formData, setFormData] = useState({ username: "", password: "" });
   const {token, setToken} = useContext(userContext)
   const {toast} = useToast()
+  const [loading, setLoading] = useState(false)
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -14,6 +16,7 @@ const UserLoginPage = () => {
   };
   
   const handleSubmit = async (e) => {
+    setLoading(true)
     e.preventDefault();
     const response = await fetch('https://axentech-backend.vercel.app/api/login', {
       method: 'POST',
@@ -22,6 +25,7 @@ const UserLoginPage = () => {
       },
       body : JSON.stringify(formData)
     })
+    setLoading(false)
     if (!response.ok) {
       toast({
         title: 'Error',
@@ -43,6 +47,10 @@ const UserLoginPage = () => {
       navigate('/', {replace: true})
     }
   },[token])
+
+  if(loading) {
+    <LoadingPage />
+  }
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -85,7 +93,7 @@ const UserLoginPage = () => {
           </div>
           <button
             type="submit"
-            className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
+            className={`w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-md hover:bg-blue-600  focus:outline-none focus:ring focus:ring-blue-300`}
           >
             Login
           </button>

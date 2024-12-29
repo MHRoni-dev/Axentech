@@ -41,6 +41,7 @@ export default function useGetUser() {
     const controller = new AbortController();
     const signal = controller.signal;
 
+    setLoading(true)
     getUser(signal, token)
       .then((data) => {
         if (data) {

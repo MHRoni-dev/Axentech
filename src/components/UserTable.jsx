@@ -4,9 +4,10 @@ import {Input} from './ui/input'
 import { useEffect, useState } from 'react'
 import { Edit } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
+import LoadingPage from '@/pages/LoadingPage'
 
 export default function UserTable() {
-  const {user: users, filterUser} = useGetUserList()
+  const {user: users, filterUser, loading} = useGetUserList()
   const [name, setName] = useState()
   const navigate = useNavigate()
 
@@ -17,6 +18,10 @@ export default function UserTable() {
   useEffect(() => {
     filterUser(users => users.filter(user => user.name.toLowerCase().includes(name)))
   }, [name])
+  console.log(loading)
+  if(users.length === 0) {
+    return <LoadingPage />
+  }
 
   return (
   <div className='w-full'>
