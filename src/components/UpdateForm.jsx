@@ -54,18 +54,7 @@ export default function UpdateForm() {
 
   return (
     <form onSubmit={handleSubmit} className="max-w-md mx-auto p-6 bg-white shadow-lg rounded-lg text-left w-full">
-      {/* ID Field - Readonly */}
-      <div className="mb-4">
-        <label htmlFor="id" className="block text-sm font-medium text-gray-700">ID</label>
-        <Input
-          type="text"
-          id="id"
-          name="id"
-          value={formData.id}
-          readOnly
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm bg-gray-100 cursor-not-allowed"
-        />
-      </div>
+     
 
       {/* Server Field - Readonly */}
       <div className="mb-4">

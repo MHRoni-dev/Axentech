@@ -28,7 +28,6 @@ export default function UserTable() {
           <Table className="border " >
             <TableHeader className="opacity-0">
               <TableRow className="bg-slate-200 font-medium ">
-                <TableHead className="font-bold">Id</TableHead>
                 <TableHead className="font-bold">Server</TableHead>
                 <TableHead className="font-bold">Name</TableHead>
                 <TableHead className="font-bold">Password</TableHead>
@@ -38,7 +37,6 @@ export default function UserTable() {
             <TableBody className="max-h-[80vh] overflow-hidden overflow-y-auto relative">
               {
                 users.length ? users.map(user => <TableRow key={user['.id']} className="even:bg-slate-50 group">
-                  <TableCell className='text-left'>{user['.id']}</TableCell>
                   <TableCell  className='text-left'>{user['server']}</TableCell>
                   <TableCell  className='text-left flex justify-between '>{user['name']} <Edit className='opacity-0 group-hover:opacity-100 h-4 w-4' onClick={()=>editClickHandler(user)}/></TableCell>
                   <TableCell className='text-left'>{Array(user?.['password']?.length ?? 0).fill('*').join('')}</TableCell>
@@ -55,7 +53,6 @@ export default function UserTable() {
         <Table className="border sticky top-0 left-0 z-20" >
             <TableHeader className="">
               <TableRow className="bg-slate-200 font-medium ">
-                <TableHead className="font-bold text-left">id</TableHead>
                 <TableHead className="font-bold text-left">Server</TableHead>
                 <TableHead className="font-bold text-left">Name</TableHead>
                 <TableHead className="font-bold text-left">Password</TableHead>

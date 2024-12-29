@@ -6,19 +6,16 @@ import UserUpdatePage from './pages/UserUpdatePage'
 import UserLoginPage from './pages/UserLoginPage'
 import { useContext, useEffect } from 'react'
 import { userContext } from './context/userContext'
+import PrivateRoute from './pages/PrivateRoute'
 
 function App() {
-  const {token, setToken} = useContext(userContext)
-  useEffect(() => {
-    const localToken = localStorage.getItem('token')
-    setToken(token)
-  }, [token])
+ 
 
   return (
     <Layout>
       <Routes>
-        <Route path='' element={<UserListPage />}/>
-        <Route path='/update' element={<UserUpdatePage /> }/>
+        <Route path='' element={<PrivateRoute><UserListPage /></PrivateRoute>}/>
+        <Route path='/update' element={<PrivateRoute><UserUpdatePage /></PrivateRoute> }/>
         <Route path="/login" element={<UserLoginPage />} />
       </Routes>
     </Layout>

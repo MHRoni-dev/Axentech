@@ -47,9 +47,9 @@ export default function useUserMutation() {
     }
   }, []);
 
-  const createUser = (userData) => mutation('http://localhost:3000/api/users', 'POST', userData);
-  const updateUser = (id, userData) => mutation(`http://localhost:3000/api/users/${id}`, 'PUT', userData);
-  const deleteUser = (id) => mutation(`http://localhost:3000/api/users/${id}`, 'DELETE');
+  const createUser = (userData) => mutation('https://axentech-backend.vercel.app/api/users', 'POST', userData);
+  const updateUser = (id, userData) => mutation(`https://axentech-backend.vercel.app/api/users/${id}`, 'PUT', userData);
+  const deleteUser = (id) => mutation(`https://axentech-backend.vercel.app/api/users/${id}`, 'DELETE');
 
   return {
     createUser,

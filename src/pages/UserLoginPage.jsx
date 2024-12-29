@@ -31,17 +31,18 @@ const UserLoginPage = () => {
     }
     const data = await response.json();
     if(data.token){
+      localStorage.setItem('token', data.token)
       setToken(data.token)
-      localStorage.setItem('token', token)
     }
   };
 
   const navigate = useNavigate()
   useEffect(() => {
     if(token) {
+      localStorage.setItem('token', token)
       navigate('/', {replace: true})
     }
-  })
+  },[token])
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
