@@ -18,6 +18,7 @@ export default function UserTable() {
   useEffect(() => {
     filterUser(users => users.filter(user => user.name.toLowerCase().includes(name)))
   }, [name])
+  
   if(loading) {
     return <LoadingPage />
   }
