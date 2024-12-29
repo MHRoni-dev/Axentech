@@ -4,12 +4,12 @@ import { Toaster } from '@/components/ui/toaster'
 
 export default function Layout({ children }) {
   return (
-    <SidebarProvider className="">
-      <AppSidebar />
+    // <SidebarProvider className="">
+      // <AppSidebar />
       <main className='w-full relative'>
         {children}
         <Toaster />
       </main>
-    </SidebarProvider>
+    // </SidebarProvider>
   )
 }
