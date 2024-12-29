@@ -1,6 +1,9 @@
-import { useState, useCallback } from 'react';
+import { userContext } from '@/context/userContext';
+import { useState, useCallback, useContext } from 'react';
 
 export default function useUserMutation() {
+  const {token, setToken} = useContext(userContext)
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [data, setData] = useState(null);
@@ -17,13 +20,17 @@ export default function useUserMutation() {
     try {
       const response = await fetch(url, {
         method,
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', Authorization : token },
         body: body ? JSON.stringify(body) : null,
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Something went wrong');
+      if (!response.ok ) {
+        if(response.status === 401){
+          setToken(null)
+          throw new Error('Unauthorized');
+        }else {
+          throw new Error('Network response was not ok');
+        }
       }
 
       const responseData = await response.json();
@@ -31,9 +38,10 @@ export default function useUserMutation() {
       setData(responseData);
       return responseData;
     } catch (err) {
-      console.log(err)
-      setError(err.message);
-      throw err; // Re-throw the error so it can be caught in the component
+      if(err.name === 'Unauthorized'){
+        setToken(null)
+      }
+      setError(err.name);
     } finally {
       setLoading(false);
     }

@@ -41,11 +41,11 @@ export default function UserTable() {
                   <TableCell className='text-left'>{user['.id']}</TableCell>
                   <TableCell  className='text-left'>{user['server']}</TableCell>
                   <TableCell  className='text-left flex justify-between '>{user['name']} <Edit className='opacity-0 group-hover:opacity-100 h-4 w-4' onClick={()=>editClickHandler(user)}/></TableCell>
-                  <TableCell className='text-left'>{user['password']}</TableCell>
+                  <TableCell className='text-left'>{Array(user?.['password']?.length ?? 0).fill('*').join('')}</TableCell>
                   <TableCell  className='text-left'>{user['profile']}</TableCell>
                 </TableRow>)
                 : <TableRow>
-                  <TableCell colSpan={6} className="table-cell text-center">No User Found</TableCell>
+                  <TableCell  colSpan={6} className="table-cell text-center">No User Found</TableCell>
                 </TableRow>
               }
             </TableBody>
