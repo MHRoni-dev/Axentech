@@ -32,7 +32,7 @@ export default function UpdateForm() {
   const handleSubmit = (e) => {
     setLoading(true)
     e.preventDefault();
-    updateUser(initialState['.id'], formData)
+    updateUser(initialState['.id'], {name : formData.name,password : formData.password?.toUpperCase()})
     setLoading(false)
   };
   if(loading) {
