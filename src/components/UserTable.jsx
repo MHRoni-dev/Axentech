@@ -1,20 +1,23 @@
 import useGetUserList from '../hooks/useGetUser'
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from './ui/table'
 import {Input} from './ui/input'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Edit } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import LoadingPage from '@/pages/LoadingPage'
+import { portContext } from '@/context/portContext'
 
 export default function UserTable() {
   const {user: users, filterUser, loading} = useGetUserList()
   const [name, setName] = useState()
   const navigate = useNavigate()
 
+
+
   const editClickHandler = (user) => {
     navigate('/update', { state : user})
   }
-
+  console.log(users)
   useEffect(() => {
     filterUser(users => users.filter(user => user.name.toLowerCase().includes(name)))
   }, [name])

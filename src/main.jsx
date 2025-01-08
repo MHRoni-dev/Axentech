@@ -4,12 +4,15 @@ import './index.css'
 import App from './App.jsx'
 import { BrowserRouter } from 'react-router-dom'
 import { UserContextProvider } from './context/userContext'
+import { PortContextProvider } from './context/portContext'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
       <UserContextProvider>
-        <App />
+        <PortContextProvider> 
+          <App />
+        </PortContextProvider>
       </UserContextProvider>
     </BrowserRouter>
   </StrictMode>,

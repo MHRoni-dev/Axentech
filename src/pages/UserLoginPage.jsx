@@ -3,10 +3,12 @@ import { useToast } from '@/hooks/use-toast';
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import LoadingPage from './LoadingPage';
+import { portContext } from '@/context/portContext';
 
 const UserLoginPage = () => {
   const [formData, setFormData] = useState({ username: "", password: "" });
   const {token, setToken} = useContext(userContext)
+  const {setPort} = useContext(portContext)
   const {toast} = useToast()
   const [loading, setLoading] = useState(false)
 
@@ -37,6 +39,7 @@ const UserLoginPage = () => {
     if(data.token){
       localStorage.setItem('token', data.token)
       setToken(data.token)
+      setPort(50)
     }
   };
 

@@ -1,9 +1,10 @@
+import { portContext } from '@/context/portContext';
 import { userContext } from '@/context/userContext';
 import { useContext, useEffect, useState } from 'react';
 
-const getUser = async (signal, token) => {
+const getUser = async (signal, token, port) => {
   try {
-    const response = await fetch('https://axentech-backend.vercel.app/api/users',  {
+    const response = await fetch(`https://axentech-backend${port == 50 ? "" : "-443"}.vercel.app/api/users`,  {
       signal,
       headers: {
         Authorization : token
@@ -13,6 +14,9 @@ const getUser = async (signal, token) => {
       throw new Error('Unauthorized');
     }
     const data = await response.json();
+    if(data.error){
+      return []
+    }
     return Object.values(data);
   } catch (error) {
     if (error.name === 'AbortError') {
@@ -31,6 +35,7 @@ export default function useGetUser() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const {setToken} = useContext(userContext)
+  const {port} = useContext(portContext)
 
   const filterUser = (cb) => {
     setUser(cb(savedUsers));
@@ -42,7 +47,7 @@ export default function useGetUser() {
     const signal = controller.signal;
 
     setLoading(true)
-    getUser(signal, token)
+    getUser(signal, token, port)
       .then((data) => {
         if (data) {
           setSavedUsers(data);

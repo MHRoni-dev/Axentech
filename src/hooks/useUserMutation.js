@@ -1,8 +1,10 @@
+import { portContext } from '@/context/portContext';
 import { userContext } from '@/context/userContext';
 import { useState, useCallback, useContext } from 'react';
 
 export default function useUserMutation() {
   const {token, setToken} = useContext(userContext)
+  const {port} = useContext(portContext)
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -47,9 +49,9 @@ export default function useUserMutation() {
     }
   }, []);
 
-  const createUser = (userData) => mutation('https://axentech-backend.vercel.app/api/users', 'POST', userData);
-  const updateUser = (id, userData) => mutation(`https://axentech-backend.vercel.app/api/users/${id}`, 'PUT', userData);
-  const deleteUser = (id) => mutation(`https://axentech-backend.vercel.app/api/users/${id}`, 'DELETE');
+  const createUser = (userData) => mutation(`https://axentech-backend${port == 50 ? "" : "-443"}.vercel.app/api/users`, 'POST', userData);
+  const updateUser = (id, userData) => mutation(`https://axentech-backend${port == 50 ? "" : "-443"}.vercel.app/api/users/${id}`, 'PUT', userData);
+  const deleteUser = (id) => mutation(`https://axentech-backend${port == 50 ? "" : "-443"}.vercel.app/api/users/${id}`, 'DELETE');
 
   return {
     createUser,
